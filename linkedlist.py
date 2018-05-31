@@ -7,10 +7,24 @@ class List(object):
         """Print the contents of a Linked List"""
 
         current = self.head
-
         while current:
             print current.data
             current = current.next_node
+
+    def reverse_in_place(self):
+        """Reverse a linked list in place"""
+
+        current = self.head
+        cn = current.next_node
+        current.next_node = None
+
+        while cn:
+            prev = current
+            current = cn
+            cn = current.next_node
+            current.next_node = prev
+
+        self.head = current
 
 
 class Node(object):
