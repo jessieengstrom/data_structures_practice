@@ -26,6 +26,25 @@ class List(object):
 
         self.head = current
 
+    def has_cycles(self):
+        """Checks if a linked list has cycles."""
+
+        slow = self.head
+        fast = self.head
+
+        while fast != None:
+            slow = slow.next_node
+
+            if fast.next_node != None:
+                fast = fast.next_node.next_node
+            else:
+                return False
+
+            if slow is fast:
+                return True
+
+        return False
+
 
 class Node(object):
     """Node of a linked list."""
