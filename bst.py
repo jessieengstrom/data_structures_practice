@@ -62,6 +62,49 @@ def print_tree_levels(root):
         elif current.right != None:
             to_visit.append(current.right)
 
+def is_bst(root, min, max):
+    """Check if it's a bst."""
+
+    if root is None:
+        return True
+
+    if root.data < min or root.data > max:
+        return False
+
+    right = is_bst(root.right, root.data, max)
+    left = is_bst(root.left, min, root.data)
+
+    return left and right
+
+def is_balanced(root):
+    """Checks if a bst is balanced"""
+
+    return bal(root) >= 0
+
+def bal(root):
+    """Get balance number."""
+    if root is None:
+        return 0
+
+    right = bal(root.right)
+    left = bal(root.left)
+
+    if left < 0 or right < 0 or abs(left - right) > 1:
+        return -1
+
+    return max(left, right) + 1
+
+def cal_height(root):
+    """Calculate the height of a binary search tree."""
+
+    if root is None:
+        return -1
+
+    right = 1 + cal_height(root.right)
+    left = 1 + cal_height(root.left)
+
+    return max(left, right)
+
 
 four = Node(4)
 root = four
@@ -72,6 +115,12 @@ insert(root, 3)
 insert(root, 1)
 insert(root, 7)
 insert(root, 5)
+# insert(root, 8)
+# insert(root, 9)
+# insert(root, 10)
 
 # create_bst([1, 2, 3, 4, 5, 6, 7])
 print_tree_levels(root)
+print is_bst(root, float('-inf'), float('inf'))
+print is_balanced(root)
+print cal_height(root)
