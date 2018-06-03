@@ -1,7 +1,7 @@
 class List(object):
     """Linked list."""
-    def __init__(self, head):
-        self.head = head
+    def __init__(self):
+        self.head = None
 
     def print_list(self):
         """Print the contents of a Linked List"""
@@ -46,7 +46,7 @@ class List(object):
         """Insert a node at the end of the list."""
 
         current = self.head
-        while current.next:
+        while current.next_node:
             current = current.next_node
 
         current.next_node = Node(data)
@@ -76,6 +76,31 @@ class List(object):
             else:
                 break
 
+    def make_copy(self):
+        """Make a copy of the list."""
+
+        new_list = List()
+
+        old_list_dictionary = {}
+        current = self.head
+
+        while current:
+             old_list_dictionary[current] = Node(current.data)
+
+             current = current.next_node
+
+        for key, value in old_list_dictionary.iteritems():
+            if key == self.head:
+                new_list.head = value
+
+            if key.next_node is None:
+                pass
+
+            else:
+                value.next_node = old_list_dictionary[key.next_node]
+
+        return new_list
+
 
 
 class Node(object):
@@ -85,17 +110,69 @@ class Node(object):
         self.data = data
         self.next_node = None
 
+def merge_two_lists(lst1, lst2):
+    """Merge two sorted linked lists."""
+
+    merged = List()
+    curr1 = lst1.head
+    curr2 = lst2.head
+
+    while curr1 or curr2:
+        if merged.head is None:
+            if curr1.data <= curr2.data:
+                new_node = Node(curr1.data)
+                merged.head = new_node
+                prev = new_node
+                curr1 = curr1.next_node
+            else:
+                new_node = Node(curr2.data)
+                merged.head = new_node
+                prev = new_node
+                curr2 = curr2.next_node
+        elif curr1 is None:
+            new_node = Node(curr2.data)
+            prev.next_node = new_node
+            prev = new_node
+            curr2 = curr2.next_node
+
+        elif curr2 is None:
+            new_node = Node(curr1.data)
+            prev.next_node = new_node
+            prev = new_node
+            curr1 = curr1.next_node
+
+        else:
+            if curr1.data <= curr2.data:
+                new_node = Node(curr1.data)
+                prev.next_node = new_node
+                prev = new_node
+                curr1 = curr1.next_node
+            else:
+                new_node = Node(curr2.data)
+                prev.next_node = new_node
+                prev = new_node
+                curr2 = curr2.next_node
+
+    return merged
+
 
 one = Node(1)
-two = Node(2)
-three = Node(3)
-three2 = Node(3)
+lst = List()
+lst.head = one
 
-one.next_node = three
-three.next_node = three2
-three2.next_node = two
+lst.insert_end(2)
+lst.insert_end(3)
+lst.insert_end(3)
+lst.insert_end(4)
 
-lst = List(one)
+one2 = Node(1)
+lst2 = List()
+lst2.head = one2
+
+lst2.insert_end(4)
+lst2.insert_end(5)
+lst2.insert_end(6)
+
 
 
 
