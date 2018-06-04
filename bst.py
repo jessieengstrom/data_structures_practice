@@ -62,6 +62,24 @@ def print_tree_levels(root):
         elif current.right != None:
             to_visit.append(current.right)
 
+def print_tree_levels_depth(root):
+
+    to_visit = [root]
+
+    while to_visit:
+        current = to_visit.pop()
+        print current.data
+
+        if current.left != None and current.right != None:
+            to_visit.extend([current.left, current.right])
+
+        elif current.right != None:
+            to_visit.append(current.right)
+
+        elif current.left != None:
+            to_visit.append(current.left)
+
+
 def is_bst(root, min, max):
     """Check if it's a bst."""
 
@@ -105,6 +123,18 @@ def cal_height(root):
 
     return max(left, right)
 
+def is_there(root, value):
+    """Find a value in a bst."""
+    if root is None:
+        return False
+    if value == root.data:
+        return True
+    if value < root.data:
+        return is_there(root.left, value)
+    if value > root.data:
+        return is_there(root.right, value)
+
+
 
 four = Node(4)
 root = four
@@ -121,6 +151,8 @@ insert(root, 5)
 
 # create_bst([1, 2, 3, 4, 5, 6, 7])
 print_tree_levels(root)
+print_tree_levels_depth(root)
 print is_bst(root, float('-inf'), float('inf'))
 print is_balanced(root)
 print cal_height(root)
+print is_there(root, 2)
