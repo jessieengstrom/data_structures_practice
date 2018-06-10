@@ -134,6 +134,14 @@ def is_there(root, value):
     if value > root.data:
         return is_there(root.right, value)
 
+def find_largest(root):
+    """find the largest number in a bst."""
+
+    if root.right is None:
+        return root.data
+
+    return find_largest(root.right)
+
 
 
 four = Node(4)
@@ -156,3 +164,4 @@ print is_bst(root, float('-inf'), float('inf'))
 print is_balanced(root)
 print cal_height(root)
 print is_there(root, 2)
+print find_largest(root)
