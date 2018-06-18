@@ -10,10 +10,13 @@ class MinHeap(object):
         """Move a val up to the correct position in a binary heap."""
 
         while i // 2 > 0:
+
             if self.min_heap[i] < self.min_heap[i // 2]:
+
                 parent = self.min_heap[i // 2]
                 self.min_heap[i // 2] = self.min_heap[i]
                 self.min_heap[i] = parent
+
             i = i // 2
 
 
@@ -30,8 +33,10 @@ class MinHeap(object):
         """Move a value down so the correct position"""
 
         while (i * 2) < self.current_size:
+
             min_child = self.min_child(i)
             if self.min_heap[i] > self.min_heap[min_child]:
+
                 parent = self.min_heap[i]
                 self.min_heap[i] = self.min_heap[min_child]
                 self.min_heap[min_child] = parent
@@ -42,6 +47,7 @@ class MinHeap(object):
         """gets the current min child."""
         if i * 2 > self.current_size:
             return i * 2
+            
         else:
             if self.min_heap[i * 2] > self.min_heap[i * 2 + 1]:
                 return i * 2 + 1

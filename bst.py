@@ -94,34 +94,60 @@ def is_bst(root, min, max):
 
     return left and right
 
+# def is_balanced(root):
+#     """Checks if a bst is balanced"""
+
+#     return bal(root) >= 0
+
+# def bal(root):
+#     """Get balance number."""
+#     if root is None:
+#         return 0
+
+#     right = bal(root.right)
+#     left = bal(root.left)
+
+#     if left < 0 or right < 0 or abs(left - right) > 1:
+#         return -1
+
+#     return max(left, right) + 1
+
 def is_balanced(root):
-    """Checks if a bst is balanced"""
+    """Check for a balanced tree."""
 
-    return bal(root) >= 0
+    depths = []
+    nodes = []
+    nodes.append((root, 0))
 
-def bal(root):
-    """Get balance number."""
-    if root is None:
-        return 0
+    while nodes:
+        node, depth = nodes.pop()
+        print node.data, depth
 
-    right = bal(root.right)
-    left = bal(root.left)
+        if not node.right and not node.left:
+            if depth not in depths:
+                depths.append(depth)
+            print depths
 
-    if left < 0 or right < 0 or abs(left - right) > 1:
-        return -1
+            if len(depths) > 2 or (len(depths) == 2 and abs(depths[0] - depths[1]) > 1):
 
-    return max(left, right) + 1
+                return False
+
+        else:
+            if node.left:
+                nodes.append((node.left, depth + 1))
+            if node.right:
+                nodes.append((node.right, depth + 1))
+
+    return True
+
 
 def cal_height(root):
     """Calculate the height of a binary search tree."""
 
     if root is None:
-        return -1
+        return 0
 
-    right = 1 + cal_height(root.right)
-    left = 1 + cal_height(root.left)
-
-    return max(left, right)
+    return 1 + max(cal_height(root.right), cal_height(root.left))
 
 def is_there(root, value):
     """Find a value in a bst."""
@@ -142,6 +168,21 @@ def find_largest(root):
 
     return find_largest(root.right)
 
+def find_second_largest(root):
+    """Find the second largest number."""
+
+    # check if you are at the parent of the largest node
+    # and the largest node has no left subtree
+    if root.right and (not root.right.right and not root.right.left):
+        return root.data
+
+    # check if the largest element has a left subtree
+    # and find the largest in that tree 
+    if root.left and not root.right:
+        return find_largest(root.right.left)
+
+    return find_second_largest(root.right)
+
 
 
 four = Node(4)
@@ -158,10 +199,10 @@ insert(root, 5)
 # insert(root, 10)
 
 # create_bst([1, 2, 3, 4, 5, 6, 7])
-print_tree_levels(root)
-print_tree_levels_depth(root)
-print is_bst(root, float('-inf'), float('inf'))
-print is_balanced(root)
+# print_tree_levels(root)
+# print_tree_levels_depth(root)
+# print is_bst(root, float('-inf'), float('inf'))
+# print is_balanced(root)
 print cal_height(root)
-print is_there(root, 2)
-print find_largest(root)
+# print is_there(root, 2)
+# print find_second_largest(root)
