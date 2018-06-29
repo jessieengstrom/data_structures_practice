@@ -101,6 +101,9 @@ class List(object):
 
         return new_list
 
+    def search(self):
+        """Search for an item in a linked list."""
+
 
 
 class Node(object):
