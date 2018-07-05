@@ -101,8 +101,17 @@ class List(object):
 
         return new_list
 
-    def search(self):
+    def search(self, item):
         """Search for an item in a linked list."""
+
+        curr = self.head
+        count = 0
+
+        while curr:
+            if curr.data == item:
+                return count
+            count += 1
+            curr = curr.next_node
 
 
 
